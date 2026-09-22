@@ -1,0 +1,1 @@
+# korvet_kafka_redis_service
