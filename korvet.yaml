@@ -1,0 +1,52 @@
+services:
+  redis:
+    image: redis:8.6
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  korvet:
+    image: redisfield/korvet:latest
+    command: server
+    ports:
+      - "9092:9092"
+      - "8080:8080"
+    environment:
+      JAVA_OPTS: >-
+        -Xms2g
+        -Xmx2g
+        -XX:+UseG1GC
+        -XX:MaxDirectMemorySize=768m
+        -XX:+ExitOnOutOfMemoryError
+      mem_limit: 4g
+      cpus: "4.0"
+
+      KORVET_REDIS_URI: "redis://redis:6379"
+
+      KORVET_TOPICS_0_NAME: "*"
+      KORVET_TOPICS_0_RETENTION_TIME: "1h"
+      KORVET_TOPICS_0_RETENTION_BYTES: "2GB"
+      KORVET_TOPICS_0_COMPRESSION: "lz4"
+      
+
+      KORVET_TOPICS_0_PARTITIONS: "4"
+      KORVET_REDIS_IO_THREADS: "4"
+      KORVET_STORAGE_LOCAL_WRITE_CONNECTIONS: "4"
+      KORVET_REDIS_POOL_SIZE: "16"
+
+      KORVET_STORAGE_REMOTE_PATH: "s3://amzn-tonywu-bucket-s3/korvet"
+      KORVET_STORAGE_REMOTE_S3_REGION: "ap-southeast-1"
+      KORVET_STORAGE_WORKER_TICK_INTERVAL: "1m"
+      KORVET_LOCAL_RETENTION_MS: "300"
+
+    depends_on:
+      - redis
+    restart: unless-stopped
+    
+    mem_limit: 4g
+    cpus: "4.0"
+
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536

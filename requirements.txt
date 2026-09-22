@@ -1,0 +1,21 @@
+# The Redis Streams half of this bundle (config.py, redis_client.py, producer.py,
+# consumer.py, workers.py, dashboard.py, streamlit_app.py minus its own optional
+# extras) has NO dependencies and is built for an airgapped host: redis_client.py
+# is a Redis client written against the Python standard library only.
+#
+# Verify that half with:
+#     python preflight.py --skip-redis
+#
+# The Kafka topics half (kafka_topics.py, kafka_producer.py, kafka_consumer.py,
+# kafka_workers.py, kafka_dashboard.py) is a separate, optional feature and does
+# need one real dependency plus a real broker -- there is no in-process fallback:
+
+kafka-python>=2.0.2
+
+# Install with:
+#     pip install kafka-python
+# and point --bootstrap-servers / KAFKA_BOOTSTRAP_SERVERS at a real Kafka (or
+# Kafka-API compatible, e.g. Redpanda) broker. The test suite
+# (tests/test_kafka_service.py, run via run_tests.py) exercises this code
+# against tests/fake_kafka.py's in-memory broker and needs neither kafka-python
+# nor a real broker installed.
