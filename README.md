@@ -1,5 +1,3 @@
-# korvet_kafka_redis_service
-
 # Kafka topics service
 
 A Streamlit app that drives a realistic produce-and-consume workload against any Kafka-protocol broker — Apache Kafka itself, or a compatible broker such as Korvet — and charts throughput and end-to-end latency while it runs.
