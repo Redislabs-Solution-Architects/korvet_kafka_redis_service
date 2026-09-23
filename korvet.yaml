@@ -34,7 +34,7 @@ services:
       KORVET_STORAGE_LOCAL_WRITE_CONNECTIONS: "4"
       KORVET_REDIS_POOL_SIZE: "16"
 
-      KORVET_STORAGE_REMOTE_PATH: "s3://amzn-tonywu-bucket-s3/korvet"
+      KORVET_STORAGE_REMOTE_PATH: "s3://amzn-xxxx-bucket-s3/korvet"
       KORVET_STORAGE_REMOTE_S3_REGION: "ap-southeast-1"
       KORVET_STORAGE_WORKER_TICK_INTERVAL: "1m"
       KORVET_LOCAL_RETENTION_MS: "300"
